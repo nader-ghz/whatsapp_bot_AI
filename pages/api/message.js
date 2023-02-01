@@ -21,11 +21,16 @@ export default async function handler(req, res) {
             const completion = await openAI.createCompletion({
                 model: "text-davinci-003", // required
                 prompt: req.body.Body, // completion based on this
-                temperature: 0.6, //
-                n: 1,
-                max_tokens: 50,
+                temperature:0.9,
+                max_tokens:150,
+                top_p:1,
+                frequency_penalty:0.0,
+                presence_penalty:0.6,
+                stop:[" Human:", " AI:"]
                 // stop: "."
             });
+
+            
             replyToBeSent = completion.data.choices[0].text
         } catch (error) {
             if (error.response) {
